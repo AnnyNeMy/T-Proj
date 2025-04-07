@@ -1,0 +1,36 @@
+<div class="auth-overlay">
+    <div class="auth-popup">
+      <form [formGroup]="AuthForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="auth-form">
+          <mat-label>Логин</mat-label>
+          <input matInput formControlName="Login" type="text" required minlength="3">
+          <mat-error *ngIf="AuthForm.get('Login')?.hasError('required')">
+            Поле нужно заполнить. От 3 до 15 знаков.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="auth-form">
+          <mat-label>Пароль</mat-label>
+          <input matInput formControlName="Pass" type="text" required minlength="3">
+          <mat-error *ngIf="AuthForm.get('Pass')?.hasError('required')">
+            Поле нужно заполнить. От 3 до 15 знаков.
+          </mat-error>
+        </mat-form-field>
+  
+        <h5 (click)="LoginRegisterClick()">
+            <span *ngIf="LoginRegisterText != LoginText" class="normal-text">{{RegisterDescription}} </span>
+            <span *ngIf="LoginRegisterText == LoginText" class="normal-text">{{LoginDescription}} </span>
+            {{ LoginRegisterText }}</h5>
+  
+        <button mat-raised-button class="auth-btn" *ngIf="LoginRegisterText != LoginText" type="submit" [disabled]="!AuthForm.valid || isLoading">
+          Войти
+          <mat-spinner class="report-spinner" diameter="20" *ngIf="isLoading"></mat-spinner>
+        </button>
+  
+        <button mat-raised-button class="auth-btn" *ngIf="LoginRegisterText == LoginText" type="submit" [disabled]="!AuthForm.valid || isLoading">
+          Зарегистрироваться
+          <mat-spinner class="report-spinner" diameter="20" *ngIf="isLoading"></mat-spinner>
+        </button>
+      </form>
+    </div>
+  </div>

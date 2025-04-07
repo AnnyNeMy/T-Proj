@@ -1,0 +1,34 @@
+﻿create table Positions
+(
+	Figi varchar(50),
+    Isin varchar(50),
+    Name varchar(250),
+    SellDate date
+);
+
+
+UPDATE public.positions
+	SET SellDate = GetBondsOfferDate(figi) 
+where GetBondsOfferDate(figi)  is not null
+
+
+SELECT figi, isin, "name", selldate
+FROM public.positions
+order by selldate 
+
+
+SELECT 
+	p.figi, 
+	p.isin, 
+	p.name, 
+	p.selldate,
+    be.EventDate,
+	be.EventType,
+    be.Execution,
+	be.OperationType,
+	be.Note,
+	be.PayValue
+FROM public.positions as p
+left join BondEvent as be on p.figi = be.figi
+where be.EventDate > '20250101'
+order by selldate 

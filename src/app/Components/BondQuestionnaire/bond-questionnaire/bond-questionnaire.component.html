@@ -1,0 +1,60 @@
+
+<mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> Сводка бондов</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <br>
+        <form [formGroup]="BondQuestionnaireForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="bonds-form">
+                <mat-label>Выберете валюту</mat-label>
+                <mat-select formControlName="Currency" >
+                  <mat-option value="RUB">RUB</mat-option>
+                  <mat-option value="EURO">EURO</mat-option>
+                  <mat-option value="USD">USD</mat-option>
+                </mat-select>
+                <mat-error *ngIf="BondQuestionnaireForm.get('Currency')?.hasError('required')">
+                    Выберите валюту!
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="bonds-form">
+                <mat-label>Выберите дату</mat-label>
+                <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="мм.дд.гггг" formControlName="CloseDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="BondQuestionnaireForm.get('CloseDate')?.hasError('required')">
+                  Дата обязательна для заполнения
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="bonds-form">
+                <mat-label>Введите прибыль в год</mat-label>
+                <input matInput formControlName="Profit" type="text" (keypress)="validateNumber($event)">
+                <mat-error *ngIf="BondQuestionnaireForm.get('Profit')?.hasError('required')">
+                 Поле нужно заполнить
+                </mat-error>
+                <mat-error *ngIf="BondQuestionnaireForm.get('Profit')?.hasError('pattern')">
+                  Введите только целое число!
+                </mat-error>
+              </mat-form-field>
+        
+              <mat-form-field class="bonds-form">
+                <mat-label>Цена дней назад</mat-label>
+                <input matInput formControlName="LagDay" type="text" (keypress)="validateNumber($event)">
+                <mat-error *ngIf="BondQuestionnaireForm.get('LagDay')?.hasError('required')">
+                 Поле нужно заполнить
+                </mat-error>
+                <mat-error *ngIf="BondQuestionnaireForm.get('LagDay')?.hasError('pattern')">
+                  Введите только целое число!
+                </mat-error>
+              </mat-form-field>
+            <button mat-raised-button class="get-bonds-btn"   type="submit" [disabled]="!BondQuestionnaireForm.valid || isGetBondsLoading">
+                Отправить
+                <mat-spinner class="report-spinner" diameter="20" *ngIf="isGetBondsLoading"></mat-spinner>
+            </button>
+        </form>
+        <app-expansion-panel *ngIf="BondData !==null && BondData.length > 0" [inputDataTabel]="BondData" title="Сводка бондов" class="expansion-container"></app-expansion-panel>
+
+    </mat-card-content>
+  </mat-card>

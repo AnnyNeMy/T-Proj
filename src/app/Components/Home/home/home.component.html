@@ -1,0 +1,49 @@
+
+<mat-toolbar color="primary">
+
+    <button fxLyout="row" class="toolbar-btn" [disabled]="isMoneyReportLoading" (click)="getMoneyReport()" matTooltip="Загрузить/обновить данные по движению средств" mat-stroked-button>
+      <span >Движение средств</span>
+      <mat-spinner diameter="20" class="report-spinner" *ngIf="isMoneyReportLoading"></mat-spinner>
+    </button> 
+  
+    <button class="toolbar-btn" [disabled]="isPortfolioReportLoading"  (click)="getPortfolioReport()" matTooltip="Загрузить/обновить текщие позиции" mat-stroked-button>
+      <span>Текущие позиции</span>
+      <mat-spinner class="report-spinner" diameter="20" *ngIf="isPortfolioReportLoading"></mat-spinner>
+    </button> 
+  
+    <button class="toolbar-btn" [disabled]="isCouponReportLoading"  (click)="getCouponReport()" matTooltip="Загрузить/обновить таблицу Купоны" mat-stroked-button>
+      <span>Купоны</span>
+      <mat-spinner class="report-spinner" diameter="20" *ngIf="isCouponReportLoading"></mat-spinner>
+    </button> 
+  
+    <button class="toolbar-btn" [disabled]="isObservedPricesLoading"  (click)="getObservedPrices()" mat-stroked-button>
+      <span>Под наблюдением</span>
+      <mat-spinner class="report-spinner" diameter="20" *ngIf="isObservedPricesLoading"></mat-spinner>
+    </button> 
+  
+    <span class="spacer"></span>
+    
+    <button class="toolbar-btn" [disabled]="isUpdateLoading"  (click)="updateData()" mat-stroked-button  [matTooltip]="revreshTooltip"  matTooltipPosition="above">
+      <span>Обновить данные</span>
+      <mat-spinner class="report-spinner" diameter="20" *ngIf="isUpdateLoading"></mat-spinner>
+    </button> 
+  <!--<button class="toolbar-btn" [disabled]="isFavouriteBondsLoading"  (click)="getFavouriteBonds()" mat-stroked-button>
+    <span>Get Favourite Bonds</span>
+    <mat-spinner class="report-spinner" diameter="20" *ngIf="isFavouriteBondsLoading"></mat-spinner>
+  </button> -->
+  </mat-toolbar>
+  
+  <app-favourite-bond class="favourite-bond-conteiner" [inputFavouriteBondData]="FavouriteBondsData"></app-favourite-bond>
+  
+  <app-bond-questionnaire></app-bond-questionnaire>
+  
+  <app-position-deals></app-position-deals>
+  
+  <mat-accordion>
+    <app-expansion-panel *ngIf="MoneyReportData !==null && MoneyReportData.length > 0" [inputDataTabel]="MoneyReportData" title="Движение средств" class="expansion-container"></app-expansion-panel>
+    <app-expansion-panel *ngIf="PortfolioReportData !==null && PortfolioReportData.length > 0" [inputDataTabel]="PortfolioReportData" title="Текщие позиции"></app-expansion-panel>
+    <app-expansion-panel *ngIf="PortfolioReportData !==null && CouponReportData.length > 0" [inputDataTabel]="CouponReportData" title="Купоны"></app-expansion-panel>
+    <app-expansion-panel *ngIf="ObservedPricesData !==null && ObservedPricesData.length > 0" [inputDataTabel]="ObservedPricesData" title="Под наблюдением"></app-expansion-panel>
+  </mat-accordion>
+  
+  

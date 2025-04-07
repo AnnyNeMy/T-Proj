@@ -1,0 +1,82 @@
+
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title> Мои бонды (favorite) </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+      <br>
+  <div class="favourite-header-container input-conteiner">
+    <mat-form-field class="input-form-field input-add-favorite" appearance="fill">
+        <mat-label>Добавление Isin</mat-label>
+        <input matInput type="text" [(ngModel)]="newIsin" maxlength="20" >
+        <div class="add-favorite-btn-container">
+          <button *ngIf="newIsin && !isAddBondLoading" matSuffix mat-icon-button aria-label="введите Isin" (click)="addBond()"
+          matTooltip="Добавить в Favorite"  matTooltipPosition="above">
+            <mat-icon class="favorite-icon">favorite</mat-icon>
+          </button> 
+          <mat-spinner diameter="20" class="report-spinner" *ngIf="isAddBondLoading"></mat-spinner>
+        </div>
+      </mat-form-field>
+
+    <button class="remove-all-btn"
+        mat-raised-button [disabled]="isRemoveDataDisable && !isDeleteAllLoading"
+        (click)="removeDataOpenDialog('500ms', '100ms')">
+        Очистить всю таблицу 
+        <mat-spinner class="report-spinner" diameter="20" *ngIf="isDeleteAllLoading"></mat-spinner>
+    </button>
+  </div>
+
+  <mat-expansion-panel class="expansion-container" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" expanded="false">
+    <mat-expansion-panel-header>
+      <mat-panel-title class="table-title"> Favorite Bonds Table </mat-panel-title>
+      <mat-panel-description>
+          {{panelOpenState() ? 'Свернуть' : 'Развернуть'}}  таблицу 
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="favorite-table-container">
+    <table mat-table [dataSource]="dataToDisplay" class="mat-elevation-z8 demo-table favorite-table"  >
+      <!-- Figi Column -->
+      <ng-container matColumnDef="Figi">
+        <th mat-header-cell *matHeaderCellDef>Figi</th>
+        <td mat-cell *matCellDef="let element">{{element.Figi}}</td>
+      </ng-container>
+    
+      <!-- Isin Column -->
+      <ng-container matColumnDef="Isin">
+        <th mat-header-cell *matHeaderCellDef>Isin</th>
+        <td mat-cell *matCellDef="let element">{{element.Isin}}</td>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.Name}}</td>
+      </ng-container>
+  
+  <!-- Delete Column -->
+      <ng-container matColumnDef="Actions" class="del-column">
+        <th mat-header-cell *matHeaderCellDef>Del</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-spinner diameter="20" class="report-spinner" *ngIf="deleteLoadingMap.get(element.Isin)"></mat-spinner>
+          <button *ngIf="!deleteLoadingMap.get(element.Isin)" mat-mini-fab class="delete-btn" (click)="removeBond(element)"> 
+            <mat-icon class="delete-icon">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  </mat-expansion-panel>
+
+
+</mat-card-content>
+</mat-card>
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+﻿create table Bond
+(
+	Figi varchar(50),
+    Isin varchar(50),
+    Name varchar(250),
+    Currency varchar(50),
+    NominalPrice real,
+    LastPrice real,
+    MaturityDate date,
+    CouponeCount int,
+    Coupone real,
+    IsQual int
+);

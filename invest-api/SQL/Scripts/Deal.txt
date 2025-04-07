@@ -1,0 +1,22 @@
+﻿create table Deal
+(
+	Figi varchar(50),
+    Isin varchar(50),
+	Name varchar(250),
+	DealDate date,
+	DealType int,
+	Sum real,
+    Count int
+)
+------------------------
+
+SELECT figi, isin, name, dealdate, dealtype, sum, count
+--, sum/count
+FROM public.deal
+where isin = 'RU000A108BX7'
+--and count != 0
+
+select sum (sum)
+from public.deal
+where isin = 'RU000A105WR1'
+group by isin

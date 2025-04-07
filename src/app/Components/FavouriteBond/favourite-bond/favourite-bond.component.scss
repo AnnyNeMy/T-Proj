@@ -1,0 +1,101 @@
+.input-form-field {
+    width: 300px;
+    margin-right: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-add-favorite mat-label {
+  margin-right: 8px; /* отступ от метки к полю ввода */
+}
+
+.remove-all-btn {
+  margin-right: 10px;
+  margin-left: 12px;
+  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px; 
+}
+.report-spinner {
+  display: inline-flex;
+  align-items: flex-end;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.add-favorite-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;  /* Размещение элементов в одной строке */
+  right: 0;  /* Выравнивание справа */
+  top: 50%;  /* Центрирование по вертикали */
+  transform: translateY(-50%);
+}
+
+.input-conteiner {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+}
+
+
+.favourite-header-container {
+margin-top: 15px;
+margin-bottom: 0px;
+}
+
+.favourite-header-container button{
+  margin-left: 10px;
+  margin-right: 10px;
+  }
+
+  .favorite-icon {
+    color: rgb(186, 8, 44);
+  }
+  .expansion-container {
+    max-width: 100%;
+    min-width: 60%;
+    width: 450px; 
+    max-height: 600px;
+  }
+
+  .favorite-table {
+    width: 400px; 
+    margin-bottom: 15px;
+  }
+
+  .favorite-table-container {
+    overflow: auto;
+    max-height: 500px;
+    min-height: auto;
+  }
+
+  .favorite-table .mat-column-Actions {
+    width: 50px; 
+    max-width: 15%; 
+  }
+
+.favorite-table mat-header-cell, 
+.favorite-table mat-cell {
+  text-align: center; 
+}
+mat-card {
+  background-color: rgb(167, 167, 167);
+  border: 2px;
+  border-color: black;
+  margin-bottom: 10px;
+  margin-top: 10px;
+} 
+.delete-icon {
+  color: #0e0e0e;
+}
+.delete-btn {
+  height: 32px;
+  width: 32px;
+  background-color: #666560;
+}

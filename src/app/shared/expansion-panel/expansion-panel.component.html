@@ -1,0 +1,11 @@
+
+    <mat-expansion-panel class="expansion-container" (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)" expanded="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title class="table-title"> {{title}} </mat-panel-title>
+        <mat-panel-description>
+            {{panelOpenState() ? 'Свернуть' : 'Развернуть'}}  таблицу 
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <app-table [inputDataSource]="inputDataTabel"></app-table>
+    </mat-expansion-panel>
+

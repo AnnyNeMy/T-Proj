@@ -1,0 +1,82 @@
+
+.auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Затемнение заднего фона */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Помещаем попап поверх остального контента */
+}
+
+/* Стили для попапа */
+.auth-popup {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px; /* Ограничиваем ширину формы */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для формы */
+.auth-form {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Кнопка входа и регистрации */
+.auth-btn {
+  width: 100%;
+  background-color: #3f51b5;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.auth-btn:hover {
+  background-color: #303f9f;
+}
+
+.auth-btn:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+/* Стили для текста "Войти" / "Зарегистрироваться" */
+h5 {
+  color: #3f51b5;
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 15px;
+  text-decoration: underline;
+}
+
+.normal-text {
+    color: black;   
+    text-decoration: none !important; 
+  }
+
+/* Стили для спиннера */
+.report-spinner {
+  margin-left: 10px;
+}
+
+/* Настройка отступов для полей формы */
+mat-form-field {
+  width: 100%;
+}
+
+/* Настройка ошибок */
+mat-error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

@@ -1,0 +1,34 @@
+<mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-title> Сделки </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <br>
+        <div class="favourite-header-container input-conteiner">
+        <mat-form-field class="input-form-field input-get-positions" appearance="fill" matTooltip="Для загрузки сделок для позиции введите isin этой позиции и нажмите Загрузить сделки">
+            <mat-label>вставьте Isin</mat-label>
+            <input matInput type="text" [(ngModel)]="newIsin" maxlength="16" >
+            <div class="get-isin-btn-container">
+              <button  *ngIf="!isPositionDealsLoading" mat-stroked-button [disabled]="!newIsin && newIsin.length<12" aria-label="введите Isin"  (click)="getPositionDeals(newIsin)" 
+               matTooltipPosition="above" matTooltip="Загрузить сделки для выбранной позиции" >
+                Загрузить сделки
+              </button> 
+              <mat-spinner diameter="20" class="report-spinner" *ngIf="isPositionDealsLoading"></mat-spinner>
+            </div>
+          </mat-form-field>
+
+
+        <button class="get-report-btn"
+            mat-raised-button [disabled]="isPositionReportLoading"
+            (click)="getPositionReport()">
+            Агрегированный отчет
+            <mat-spinner class="report-spinner" diameter="20" *ngIf="isPositionReportLoading"></mat-spinner>
+        </button>
+        </div>
+
+        <app-expansion-panel *ngIf="PositionReportData !==null && PositionReportData.length > 0" [inputDataTabel]="PositionReportData" title=" Агрегированный отчет" class="expansion-container"></app-expansion-panel>
+        <app-expansion-panel *ngIf="PositionDealsData !==null && PositionDealsData.length > 0" [inputDataTabel]="PositionDealsData" title="Сделки для позиции" class="expansion-container"></app-expansion-panel>
+
+    </mat-card-content>
+</mat-card>
+

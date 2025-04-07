@@ -1,0 +1,69 @@
+﻿create table BondEvent
+(
+	Figi varchar(50),
+    EventDate date,
+	EventType varchar(50),
+    Execution varchar(50),
+	OperationType varchar(50),
+	Note varchar(1000),
+	PayValue real
+)
+
+------------------------------
+
+CREATE OR REPLACE FUNCTION GetBondsCouponePay
+(
+    _figi varchar(50)
+)
+
+RETURNS float -- не забываем про setof - который возвращает множество
+ 
+AS $$
+
+select
+	PayValue
+from public.BondEvent
+    where figi = _figi
+	and PayValue != 0
+	and eventtype = 'Cpn'
+order by 
+    EventDate desc
+limit 1
+
+$$
+LANGUAGE SQL;
+----------------------------
+
+UPDATE public.bond
+	SET coupone = GetBondsCouponePay(figi) 
+
+----------------------------
+
+CREATE OR REPLACE FUNCTION GetBondsOfferDate
+(
+    _figi varchar(50)
+)
+
+RETURNS date 
+ 
+AS $$
+
+select
+	eventdate
+FROM public.bondevent
+	where eventtype = 'Call'
+	and figi = _figi
+	and operationtype in ('O', 'A') 
+	and eventdate > NOW()
+order by 
+    EventDate desc
+limit 1
+
+$$
+LANGUAGE SQL;
+
+-------------------------------
+
+UPDATE public.bond
+	SET MaturityDate = GetBondsOfferDate(figi) 
+where GetBondsOfferDate(figi)  is not null

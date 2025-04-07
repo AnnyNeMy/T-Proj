@@ -1,0 +1,54 @@
+CREATE OR REPLACE FUNCTION AnaliticBond
+(
+	_currency varchar(50),
+	_date Date,
+	_profit real,
+	_lagday int
+)
+RETURNS TABLE 
+(
+     Isin varchar(50),
+	 Name varchar(250),
+	 Currency varchar(50),
+	 MaturityDate date,
+	 LastPrice real,
+	 Profit real,
+	 Volatily real,
+	 Change real
+)
+AS $$
+select 
+	t.isin,
+	t.name,
+	t.currency,
+	t.maturitydate :: date,
+	t.lastprice,
+	(t.cpnPrcntYear * t.rsdlYear  + t.bodyPrcnt) / t.rsdlYear as profit,
+	GetVolatilyBond(t.figi),
+	100*(t.lastprice - GetHistoryPrice(t.figi, _lagday))/t.lastprice as change
+from
+(
+	SELECT 
+		figi,
+		isin, 
+		"name",
+		currency,
+		maturitydate as maturitydate, 
+		lastprice, 
+		100 * (coupone/(nominalprice * (lastprice/100)) * couponecount::real) as cpnPrcntYear,
+		abs (maturitydate :: date - now():: date)::real / 365 as rsdlYear,
+		100*(100-lastprice) / lastprice as bodyPrcnt
+	FROM public.bond
+		where 
+		currency = _currency
+		and lastprice > 0 
+		and maturitydate > NOW() 
+		and maturitydate < _date
+) as t
+where 
+(t.cpnPrcntYear * t.rsdlYear  + t.bodyPrcnt) / t.rsdlYear > _profit
+        
+$$
+LANGUAGE SQL
+
+--select * from AnaliticBond('rub', '2025-12-12', 25, 2);

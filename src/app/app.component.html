@@ -1,0 +1,5 @@
+<header>
+  <button *ngIf="UserName != 'Войти'" class="logout-btn" matTooltip="Выйти из профиля" (click)="logout()">{{UserName}}</button>
+</header>
+
+<router-outlet></router-outlet>
